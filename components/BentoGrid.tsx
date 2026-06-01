@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Flame, CalendarDays, Trophy } from "lucide-react";
 import { Course } from "@/types";
 import CourseCard from "./CourseCard";
@@ -9,7 +9,7 @@ import ActivityChart from "./ActivityChart";
 import UpcomingTasks from "./UpcomingTasks";
 import CourseModal from "./CourseModal";
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -17,13 +17,14 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 30, scale: 0.96 },
   show: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { type: "spring", stiffness: 250, damping: 20, mass: 0.8 },
+    // TypeScript now knows "spring" is a valid Framer Motion type!
+    transition: { type: "spring", stiffness: 250, damping: 20, mass: 0.8 }, 
   },
 };
 
