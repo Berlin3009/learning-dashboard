@@ -40,8 +40,7 @@ export default function UpcomingTasks() {
   return (
     <div className="flex flex-col h-full relative z-10">
       <h3 className="text-white/90 font-medium text-xs tracking-widest uppercase mb-4">Upcoming Tasks</h3>
-      
-      {/* Interactive Input Form */}
+
       <form onSubmit={handleAddTask} className="mb-4 relative">
         <input
           type="text"
@@ -59,7 +58,6 @@ export default function UpcomingTasks() {
         </button>
       </form>
 
-      {/* Task List with Framer Motion AnimatePresence */}
       <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
         <ul className="space-y-1">
           <AnimatePresence initial={false}>

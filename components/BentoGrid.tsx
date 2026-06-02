@@ -23,12 +23,15 @@ const itemVariants: Variants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    // TypeScript now knows "spring" is a valid Framer Motion type!
-    transition: { type: "spring", stiffness: 250, damping: 20, mass: 0.8 }, 
+    transition: { type: "spring", stiffness: 250, damping: 20, mass: 0.8 },
   },
 };
 
-export default function BentoGrid({ courses }: { courses: Course[] }) {
+interface BentoGridProps {
+  courses: Course[];
+}
+
+export default function BentoGrid({ courses }: BentoGridProps) {
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   return (
@@ -39,9 +42,7 @@ export default function BentoGrid({ courses }: { courses: Course[] }) {
         animate="show"
         className="flex flex-col gap-6 pb-24 md:pb-0"
       >
-        {/* ================= TOP SECTION ================= */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
           <motion.div
             variants={itemVariants}
             whileHover={{ scale: 1.005 }}
@@ -54,7 +55,7 @@ export default function BentoGrid({ courses }: { courses: Course[] }) {
             <div className="relative z-10 flex flex-col h-full justify-between">
               <div>
                 <h2 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-neutral-100 to-neutral-500 drop-shadow-sm group-hover:to-neutral-300 transition-all duration-700">
-                  Welcome back, Mukul!
+                  Welcome back, Alex!
                 </h2>
                 <p className="text-cyan-100/50 max-w-md mb-8 font-medium leading-relaxed group-hover:text-cyan-100/70 transition-colors duration-700">
                   Your dedication is paying off. You are currently in the top 5%
@@ -95,10 +96,7 @@ export default function BentoGrid({ courses }: { courses: Course[] }) {
           </motion.div>
         </div>
 
-        {/* ================= BOTTOM SECTION ================= */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
-          {/* LEFT: 2x2 Grid for Course Cards */}
           <div className="col-span-1 lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 h-fit">
             {courses.map((course) => (
               <motion.div key={course.id} variants={itemVariants}>
@@ -110,7 +108,6 @@ export default function BentoGrid({ courses }: { courses: Course[] }) {
             ))}
           </div>
 
-          {/* RIGHT: Tasks Stack (Now taking the full height of the column) */}
           <div className="col-span-1 flex flex-col h-full">
             <motion.div
               variants={itemVariants}
@@ -118,14 +115,12 @@ export default function BentoGrid({ courses }: { courses: Course[] }) {
             >
               <div className="absolute inset-0 border-t border-white/10 rounded-[32px] pointer-events-none" />
               <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
-              {/* The UpcomingTasks component will natively expand to fill this flex container */}
               <UpcomingTasks />
             </motion.div>
           </div>
         </div>
       </motion.div>
 
-      {/* Modal Overlay Component */}
       <AnimatePresence>
         {selectedCourse && (
           <CourseModal

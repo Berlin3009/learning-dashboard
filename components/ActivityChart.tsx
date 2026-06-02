@@ -10,7 +10,7 @@ const getIntensity = (index: number) => {
   return pattern[index % pattern.length];
 };
 
-const getColor = (intensity: number, isActive: boolean) => {
+const getCellTheme = (intensity: number, isActive: boolean) => {
   if (!isActive) return "bg-white/[0.02] border-transparent";
   
   switch (intensity) {
@@ -22,12 +22,12 @@ const getColor = (intensity: number, isActive: boolean) => {
   }
 };
 
+const TOTAL_CELLS = 126;
+
 export default function ActivityChart({ courses = [] }: { courses?: Course[] }) {
   const [view, setView] = useState<"grid" | "bars">("grid");
   const [activeRange, setActiveRange] = useState<30 | 60 | 90 | 126>(90);
   const [hoveredCell, setHoveredCell] = useState<{ date: string; count: number, isActive: boolean } | null>(null);
-
-  const TOTAL_CELLS = 126; 
 
   const activityData = useMemo(() => {
     const data = [];
@@ -36,6 +36,7 @@ export default function ActivityChart({ courses = [] }: { courses?: Course[] }) 
     for (let i = TOTAL_CELLS - 1; i >= 0; i--) {
       const date = new Date(today);
       date.setDate(date.getDate() - i);
+      
       const intensity = getIntensity(i);
       const isActive = i < activeRange;
       
@@ -133,7 +134,7 @@ export default function ActivityChart({ courses = [] }: { courses?: Course[] }) 
                       transition={{ type: "spring", stiffness: 300, damping: 20, delay: index * 0.001 }}
                       onHoverStart={() => setHoveredCell({ date: day.date, count: day.count, isActive: day.isActive })}
                       onHoverEnd={() => setHoveredCell(null)}
-                      className={`w-[13px] h-[13px] rounded-[3px] border transition-all duration-500 ${getColor(day.intensity, day.isActive)} ${day.isActive ? "cursor-crosshair hover:scale-125 hover:z-20" : ""}`}
+                      className={`w-[13px] h-[13px] rounded-[3px] border transition-all duration-500 ${getCellTheme(day.intensity, day.isActive)} ${day.isActive ? "cursor-crosshair hover:scale-125 hover:z-20" : ""}`}
                     />
                   ))}
                 </div>
@@ -163,7 +164,6 @@ export default function ActivityChart({ courses = [] }: { courses?: Course[] }) 
             >
               {courses.slice(0, 4).map((course, i) => (
                 <div key={course.id} className="w-full group">
-                  {/* FIXED: Flex constraints applied to prevent text collision */}
                   <div className="flex justify-between items-center mb-1.5 gap-3">
                     <span className="text-xs font-medium text-white/70 group-hover:text-white transition-colors truncate" title={course.title}>
                       {course.title}

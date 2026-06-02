@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, LayoutDashboard, Settings, User, Flame } from "lucide-react";
-import { useRouter } from "next/navigation"; // 1. Import Next.js Router
+import { useRouter } from "next/navigation"; 
 
 const navItems = [
   { id: "dashboard", icon: LayoutDashboard, label: "Dashboard" },
@@ -12,12 +12,10 @@ const navItems = [
   { id: "settings", icon: Settings, label: "Settings" },
 ];
 
-// 2. Accept the currentTab as a prop from the Server
 export default function Sidebar({ currentTab = "dashboard" }: { currentTab?: string }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const router = useRouter();
 
-  // 3. Update the URL without reloading the page
   const handleNavigation = (id: string) => {
     router.push(`/?tab=${id}`, { scroll: false });
   };
@@ -54,11 +52,11 @@ export default function Sidebar({ currentTab = "dashboard" }: { currentTab?: str
 
         <ul className="flex flex-col gap-2 w-full">
           {navItems.map((item) => {
-            const isActive = currentTab === item.id; // 4. Check against prop
+            const isActive = currentTab === item.id; 
             return (
               <li
                 key={item.id}
-                onClick={() => handleNavigation(item.id)} // 5. Trigger routing
+                onClick={() => handleNavigation(item.id)}
                 className={`relative p-3 rounded-xl flex items-center gap-3 cursor-pointer transition-colors ${
                   isActive ? "text-white" : "text-neutral-500 hover:text-white/80"
                 } ${item.id === "settings" ? "mt-auto" : ""}`}
@@ -102,14 +100,14 @@ export default function Sidebar({ currentTab = "dashboard" }: { currentTab?: str
                 exit={{ opacity: 0 }} 
                 className="text-sm text-white font-medium whitespace-nowrap"
               >
-                Mukul Sahu
+                Alex
               </motion.span>
             )}
           </AnimatePresence>
         </div>
       </motion.nav>
 
-      {/* Mobile Nav */}
+      
       <nav className="md:hidden fixed bottom-0 left-0 w-full border-t border-white/10 bg-[#0a0a0a]/90 backdrop-blur-xl p-4 z-50 px-6">
         <ul className="flex justify-between items-center w-full">
           {navItems.filter(i => i.id !== 'settings').map((item) => {

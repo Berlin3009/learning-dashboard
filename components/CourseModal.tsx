@@ -12,22 +12,23 @@ const iconMap: Record<string, any> = {
   Network: Network,
 };
 
-// Mock data for the lessons inside the module
-const mockLessons = [
+const moduleSyllabus = [
   { id: 1, title: "Introduction & Core Theory", duration: "12m", completed: true },
   { id: 2, title: "Architecture & Best Practices", duration: "25m", completed: true },
   { id: 3, title: "Practical Implementation", duration: "45m", completed: false },
   { id: 4, title: "Advanced Techniques & Optimization", duration: "30m", completed: false },
 ];
 
-export default function CourseModal({ course, onClose }: { course: Course; onClose: () => void }) {
+interface CourseModalProps {
+  course: Course;
+  onClose: () => void;
+}
+
+export default function CourseModal({ course, onClose }: CourseModalProps) {
   const IconComponent = iconMap[course.icon_name] || Layers;
 
   return (
-    // Fixed backdrop that covers the entire screen
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      
-      {/* Animated blurred background */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -36,7 +37,6 @@ export default function CourseModal({ course, onClose }: { course: Course; onClo
         className="absolute inset-0 bg-black/60 backdrop-blur-sm cursor-pointer"
       />
 
-      {/* The Modal Window */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -44,12 +44,10 @@ export default function CourseModal({ course, onClose }: { course: Course; onClo
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
         className="relative w-full max-w-lg bg-[#0a0a0a] border border-white/10 rounded-[32px] overflow-hidden shadow-2xl flex flex-col"
       >
-        {/* Luxury Glass Edges & Glows */}
         <div className="absolute inset-0 border-t border-white/10 rounded-[32px] pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none" />
         <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-cyan-500/10 blur-[100px] rounded-full pointer-events-none" />
 
-        {/* Modal Header */}
         <div className="p-6 pb-0 flex justify-between items-start relative z-10">
           <div className="flex items-center gap-4">
             <div className="p-3 rounded-2xl bg-white/5 border border-white/5 text-cyan-400 shadow-inner">
@@ -68,10 +66,7 @@ export default function CourseModal({ course, onClose }: { course: Course; onClo
           </button>
         </div>
 
-        {/* Modal Body */}
         <div className="p-6 relative z-10">
-          
-          {/* Detailed Progress Bar */}
           <div className="mb-8 bg-black/40 border border-white/5 p-4 rounded-2xl">
             <div className="flex justify-between items-end mb-2">
               <span className="text-sm font-medium text-white/80">Course Progress</span>
@@ -87,10 +82,9 @@ export default function CourseModal({ course, onClose }: { course: Course; onClo
             </div>
           </div>
 
-          {/* Lessons List */}
           <h3 className="text-xs text-white/50 tracking-widest uppercase mb-4 font-semibold">Syllabus Overview</h3>
           <ul className="space-y-2 mb-8">
-            {mockLessons.map((lesson) => (
+            {moduleSyllabus.map((lesson) => (
               <li 
                 key={lesson.id} 
                 className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors group cursor-pointer border border-transparent hover:border-white/5"
@@ -113,7 +107,6 @@ export default function CourseModal({ course, onClose }: { course: Course; onClo
             ))}
           </ul>
 
-          {/* Action Button */}
           <button className="w-full py-3.5 rounded-xl bg-white text-black font-bold tracking-wide hover:bg-cyan-50 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.1)]">
             Resume Module
           </button>
