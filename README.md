@@ -1,7 +1,11 @@
 # NextGen Learning Dashboard
 
-![NextGen Dashboard Preview](./public/dashboard-preview.png)
-![Course Progress](./public/course_pop-up.png)
+<p align="center">
+  <img src="./public/dashboard-preview.png" alt="NextGen Dashboard" width="800">
+</p>
+<p align="center">
+  <img src="./public/course_pop-up.png" alt="Course Progress" width="800">
+</p>
 
 **Live Demo:** (https://learning-dashboard-pink.vercel.app/)
 
